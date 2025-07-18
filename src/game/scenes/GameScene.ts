@@ -48,7 +48,7 @@ export class GameScene extends Scene {
     correctWords = 0;
     timer!: Phaser.GameObjects.Graphics;
     timerBarWidth = 1;
-    timerBarHeight = 45;
+    timerBarHeight = 30;
     letterImages: Phaser.GameObjects.Image[] = [];
     startTime!: number;
     tileScale: number;
@@ -194,7 +194,7 @@ export class GameScene extends Scene {
                 this.gameState.totalPoints += pts;
                 this.updateCurrentScoreDisplay(String(this.score), String(this.gameState.highScore));
 
-                this.powerManager.increasePower();
+                this.powerManager.increasePower(pts);
                 
                 this.gameState.wordsCompleted++;
                 this.gameState.totalWordsCompleted++;
@@ -220,6 +220,9 @@ export class GameScene extends Scene {
             this.checkAchievements();
 
             this.soundManager.playErrorSound();
+
+            this.powerManager.decreasePower();
+            
             this.updateCurrentScoreDisplay(String(this.score), String(this.gameState.highScore));
             this.cameras.main.shake(100, 0.01);
 
@@ -467,6 +470,9 @@ export class GameScene extends Scene {
         if (this.healthManager.getCurrentHealth() === 0) {
             this.handleGameOver();
         }
+        
+        // update power boost bar 
+        this.powerManager.update();
     }
 
 
