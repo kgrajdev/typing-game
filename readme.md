@@ -6,7 +6,6 @@ Game created as part of the Kenney Jam 2025
 This is a simple word typing game. Try to get a high score, avoid mistakes.
 
 This is a fast-paced game that puts your typing speed and accuracy to the test! Words will appear on the screen one by one, and your mission is simple: type them correctly before time runs out.
-The game is perfect for improving typing speed, spelling accuracy, and quick thinking while keeping things fun and competitive.
 
 # How to Play
 

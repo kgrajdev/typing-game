@@ -41,7 +41,7 @@ export default class PowerManager {
         if (this.active) return; // Don't increase while in Power Mode
 
         if (points === 10) this.powerIncrement = 10;
-        else if (points === 8) this.powerIncrement = 45;
+        else if (points === 8) this.powerIncrement = 8;
         else if (points === 6)  this.powerIncrement = 3;
         else if (points === 4)  this.powerIncrement = 2;
         else if (points === 2)  this.powerIncrement = 0;
