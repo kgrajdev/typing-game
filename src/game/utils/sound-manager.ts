@@ -11,6 +11,7 @@ export default class SoundManager {
     private gameOverSound!: Phaser.Sound.BaseSound;
     private wordCompleteSound!: Phaser.Sound.BaseSound;
     private achievementUnlockedSound!: Phaser.Sound.BaseSound;
+    private powerBoostTriggeredSound!: Phaser.Sound.BaseSound;
     private static backgroundMusic: Phaser.Sound.BaseSound | null = null;
 
     private constructor(scene: Phaser.Scene) {
@@ -39,6 +40,7 @@ export default class SoundManager {
         this.wordCompleteSound = this.scene.sound.add('wordCompleteSound', { volume: 0.33 });
         this.gameOverSound = this.scene.sound.add('gameOverSound', { loop: false, volume: 0.5 });
         this.achievementUnlockedSound = this.scene.sound.add('achievementUnlocked', { loop: false, volume: 0.5 });
+        this.powerBoostTriggeredSound = this.scene.sound.add('powerBoostTriggered', { loop: false, volume: 0.5 });
 
         if (!SoundManager.backgroundMusic) {
             SoundManager.backgroundMusic = this.scene.sound.add('bgMusic', { loop: true, volume: 0.33 });
@@ -79,6 +81,10 @@ export default class SoundManager {
     
     playAchievementUnlockedSound(): void {
         this.achievementUnlockedSound.play();
+    }
+    
+    playPowerBoostTriggeredSound(): void {
+        this.powerBoostTriggeredSound.play();
     }
 
     stopGameOverSound(): void {

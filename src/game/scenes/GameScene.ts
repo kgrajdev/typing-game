@@ -245,7 +245,6 @@ export class GameScene extends Scene {
                 description: def.description,
             };
 
-            // console.log(`🏆 ${def.name}`);
             this.soundManager.playAchievementUnlockedSound();
             this.notifier.showNotification('Achievement Unlocked');
             this.localStorage.save(this.gameState);

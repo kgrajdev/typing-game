@@ -73,6 +73,7 @@ export class PreloadScene extends Scene {
         this.load.audio('errorSound', 'assets/audio/error_005.ogg');
         this.load.audio('gameOverSound', 'assets/audio/jingles-saxophone_13.ogg');
         this.load.audio('achievementUnlocked', 'assets/audio/jingles-retro_08.ogg');
+        this.load.audio('powerBoostTriggered', 'assets/audio/jingles-retro_00.ogg');
         
         // preload other imagery
         this.load.image('preload-bg', 'assets/word-rush-logo.png');

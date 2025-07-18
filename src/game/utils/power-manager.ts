@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import SoundManager from "./sound-manager";
 
 export default class PowerManager {
     private scene: Phaser.Scene;
@@ -15,13 +16,13 @@ export default class PowerManager {
     private powerIncrement = 5;
     private readonly powerModeDuration = 20000; // 20 seconds
     private powerModeStartTime = 0;
+    private soundManager: SoundManager;
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
 
         this.barWidth = scene.cameras.main.width; // 100% of screen width
         const x = 0;
-        // const x = (scene.cameras.main.width - this.barWidth) / 2;
         const y = 30;
 
         // Background (black)
@@ -29,6 +30,8 @@ export default class PowerManager {
 
         // Fill (orange)
         this.fill = scene.add.rectangle(x, y, 0, this.barHeight, 0xffa500).setOrigin(0, 0);
+
+        this.soundManager = SoundManager.getInstance();
     }
 
     /**
@@ -38,7 +41,7 @@ export default class PowerManager {
         if (this.active) return; // Don't increase while in Power Mode
 
         if (points === 10) this.powerIncrement = 10;
-        else if (points === 8) this.powerIncrement = 5;
+        else if (points === 8) this.powerIncrement = 45;
         else if (points === 6)  this.powerIncrement = 3;
         else if (points === 4)  this.powerIncrement = 2;
         else if (points === 2)  this.powerIncrement = 0;
@@ -47,6 +50,7 @@ export default class PowerManager {
         this.updateBar();
 
         if (this.powerLevel >= this.maxPower) {
+            this.soundManager.playPowerBoostTriggeredSound();
             this.activatePowerMode();
         }
     }
