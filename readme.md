@@ -23,7 +23,7 @@ The game is perfect for improving typing speed, spelling accuracy, and quick thi
 
 # Achievements
 
-- The game as some basic achievements in place
+- The game has some basic achievements in place
 
 ---
 
