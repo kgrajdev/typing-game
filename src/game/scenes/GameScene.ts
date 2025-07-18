@@ -7,6 +7,7 @@ import SoundManager from "../utils/sound-manager";
 import LocalStorageManager from "../utils/local-storage-manager";
 import HealthManager from "../utils/health-manager";
 import NotificationManager from "../utils/notification-manager";
+import PowerManager from "../utils/power-manager";
 
 interface Config {
     fullPoints: number;
@@ -116,6 +117,7 @@ export class GameScene extends Scene {
     paused = false;
     timerEvent!: Phaser.Time.TimerEvent;  // Phaser timer event for countdown
     inputEnabled = false;
+    private powerManager!: PowerManager;
     
     constructor() {
         super('GameScene');
@@ -125,7 +127,7 @@ export class GameScene extends Scene {
         this.currentTheme = this.registry.get('tile-theme')
         this.soundManager = SoundManager.getInstance();
         this.localStorage = new LocalStorageManager();
-
+        
         NotificationManager.init(this); // once per scene
         this.notifier = NotificationManager.getInstance();
 
@@ -148,6 +150,8 @@ export class GameScene extends Scene {
         this.startInitialCountdown(() => {
             this.inputEnabled = true;
             this.timerBarWidth = this.cameras.main.width;
+            this.powerManager = new PowerManager(this);
+            
             this.spawnWord();
             this.createScoreDisplayHeadings();
             this.createPauseButton();
@@ -190,6 +194,8 @@ export class GameScene extends Scene {
                 this.gameState.totalPoints += pts;
                 this.updateCurrentScoreDisplay(String(this.score), String(this.gameState.highScore));
 
+                this.powerManager.increasePower();
+                
                 this.gameState.wordsCompleted++;
                 this.gameState.totalWordsCompleted++;
 
@@ -339,19 +345,19 @@ export class GameScene extends Scene {
         const remaining = this.timerEvent?.getRemaining?.() ?? 0;
         const percentRemaining = remaining / config.timeLimit;
 
-        if (percentRemaining >= 0.9) {
-            return 10;
-        } else if (percentRemaining >= 0.7) {
-            return 8;
-        } else if (percentRemaining >= 0.5) {
-            return 6;
-        } else if (percentRemaining >= 0.3) {
-            return 4;
-        } else if (percentRemaining >= 0.1) {
-            return 2;
-        } else {
-            return 1;
+        let points = 1;
+
+        if (percentRemaining >= 0.9) points = 10;
+        else if (percentRemaining >= 0.7) points = 8;
+        else if (percentRemaining >= 0.5) points = 6;
+        else if (percentRemaining >= 0.3) points = 4;
+        else if (percentRemaining >= 0.1) points = 2;
+
+        if (this.powerManager.isPowerModeActive()) {
+            points *= 2; // DOUBLE POINTS
         }
+
+        return points;
     }
 
 

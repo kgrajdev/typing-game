@@ -27,6 +27,11 @@ The game is perfect for improving typing speed, spelling accuracy, and quick thi
 
 ---
 
+### Kenney Jam 2025 Theme - Power
+The game has a points boost mechanic, which I think fits within the theme.
+
+---
+
 #### To Do
 
 - Add actual text to the game to replace some of the image-based UI (due to Jam challenge)
